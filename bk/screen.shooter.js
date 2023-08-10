@@ -69,7 +69,8 @@ class PuppeteerMassScreenshots {
     The startOptions specify the properties of the screencast
     👉🏻 format - the file type (Allowed fomats: 'jpeg' or 'png')
     👉🏻 quality - sets the image quality (default is 100)
-    👉🏻 everyNthFrame - specifies the number of frames to ignore before taking the next screenshots. (The more frames we ignore, the less screenshots we will have)
+    👉🏻 everyNthFrame - specifies the number of frames to ignore before taking the next screenshots. 
+    (The more frames we ignore, the less screenshots we will have)
     */
     async start(options = {}) {
         const startOptions = {

@@ -93,6 +93,7 @@ socketIO.on('connection', (socket) => {
             // await page.waitForTimeout(000)
             await page.screenshot({ path: 'testresult.png', fullPage: true })
             await page.waitForTimeout(5000)
+            // code to enter 
             // await page.$eval('input[id="#mat-input-0"]', (el, value) => el.value = value, "ahoo vs me");
             // await page.keyboard.press('Enter')
             // await page.waitForTimeout(15000);
@@ -220,6 +221,7 @@ socketIO.on('connection', (socket) => {
                     },
                     { x, y }
                 );
+
 
                 try {
                     // await page.mouse.click(x, y);
