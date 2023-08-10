@@ -1,0 +1,57 @@
+html
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Screen Sharing</title>
+</head>
+
+<body>
+    <video id="screen" autoplay></video>
+
+    <script>
+        const video = document.getElementById('screen');
+
+        // Get the stream from the server
+        fetch('/stream/3001')
+            .then((response) => response.text())
+            .then((sdp) => {
+                // Create a new RTCPeerConnection
+                const pc = new RTCPeerConnection();
+
+                // Set the remote description
+                pc.setRemoteDescription(new RTCSessionDescription({
+                    type: 'offer',
+                    sdp: sdp
+                }))
+                    .then(() => {
+                        // Create the SDP answer
+                        return pc.createAnswer();
+                    })
+                    .then((answer) => {
+                        // Set the local description
+                        return pc.setLocalDescription(answer);
+                    })
+                    .then(() => {
+                        // Send the SDP answer back to the server
+                        fetch('/stream/3001', {
+                            method: 'POST',
+                            body: pc.localDescription.sdp
+                        });
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+
+                // Display the screen in the video element
+                pc.ontrack = (event) => {
+                    video.srcObject = event.streams[0];
+                };
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    </script>
+</body>
+
+</html>
