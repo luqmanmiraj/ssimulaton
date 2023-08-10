@@ -27,7 +27,7 @@ app.use(cors());
 //New imports
 const socketIO = require('socket.io')(http, {
     cors: {
-        origin: "http://localhost:3001"
+        origin: "http://localhost:3000"
     }
 });
 
@@ -93,6 +93,12 @@ socketIO.on('connection', (socket) => {
             // await page.waitForTimeout(000)
             await page.screenshot({ path: 'testresult.png', fullPage: true })
             await page.waitForTimeout(5000)
+            // await page.$eval('input[id="#mat-input-0"]', (el, value) => el.value = value, "ahoo vs me");
+            // await page.keyboard.press('Enter')
+            // await page.waitForTimeout(15000);
+
+            // const content = await page.$$eval('.conversation-container', divs => divs[divs.length - 1].innerHTML);
+            // return content
 
             const screenshots = new PuppeteerMassScreenshots();
             await screenshots.init(page, socket);
